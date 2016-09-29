@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}CollectMaster!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="../vendors/bootstrap/dist/css/bootstrap.css">
+            <link rel="stylesheet" href="../css/collectmaster.css">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container">
+            {%  block menu %}
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">CollectMaster</a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="{{ path('default') }}">Home</a></li>
+                                <li><a href="{{ path('items') }}">Collection</a></li>
+                            </ul>
+                            <a class="pull-right btn btn-info account" href="{{ path('fos_user_security_login') }}">Login</a>
+                        </div>
+                    </div>
+                </nav>
+
+                {%  if app.user %}
+                <div class="text-right">
+                    Hello {{ app.user.username }} | <a href="{{ path('fos_user_security_logout') }}">Log out</a>
+                </div>
+                {%  endif %}
+
+            {%  endblock %}
+
+            {%  for message in app.session.flashbag.get('infos') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {%  endfor %}
+
+            {%  for message in app.session.flashbag.get('errors') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {%  endfor %}
+
+            {%  block main %}{% endblock %}
+        </div>
+        {% block javascripts %}
+        {% endblock %}
+
+
+    </body>
+</html>
