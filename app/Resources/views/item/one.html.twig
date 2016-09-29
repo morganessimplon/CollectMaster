@@ -3,7 +3,24 @@
 {%  block main %}
     <div class="container">
 
-        {{ item.title }}
+        {{ form_start(form) }} <br />
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.code) }}
+        {{ form_row(form.collection) }}
+        {{ form_row(form.imageUrl) }}
+
+        {{ form_widget(form.submit, {attr: {class: 'hide'}}) }}
+        {{ form_widget(form.update) }}
+
+        {%  if app.user.hasRole('ROLE_ADMIN') %}
+            {{ form_widget(form.changeOwner) }}
+        {% else %}
+            {{ form_widget(form.changeOwner, {attr: {class: 'hide'}}) }}
+        {% endif %}
+
+        {{ form_end(form) }}
 
     </div>
 {%  endblock %}

@@ -2,6 +2,18 @@
 
 {%  block main %}
     <div class="container">
-        {{ form(form) }}
+        {{ form_start(form) }} <br />
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.code) }}
+        {{ form_row(form.collection) }}
+        {{ form_row(form.imageUrl) }}
+
+        {{ form_widget(form.submit) }}
+        {{ form_widget(form.update, {attr: {class: 'hide'}}) }}
+        {{ form_widget(form.changeOwner, {attr: {class: 'hide'}}) }}
+
+        {{ form_end(form) }}
     </div>
 {%  endblock %}
